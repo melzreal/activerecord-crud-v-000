@@ -4,6 +4,7 @@
 # def make_a_new_movie_instance    # def make_a_new_movie_instance
 #   movie = __                     #   movie = Movie.new
 # end                              # end
+require 'pry'
 
 def can_be_instantiated_and_then_saved
   movie = Movie.new
@@ -55,13 +56,16 @@ def can_find_by_multiple_attributes
   # title == "Title"
   # release_date == 2000
   # director == "Me"
-  Movie.where("title = 'Title', release_date= '2000', director = 'Me'")
+  #Movie.find_in_batches do
+    Movie.where("title = 'Title' AND release_date= '2000' AND director = 'Me'").reduce
+
+
 end
 
 def can_find_using_where_clause_and_be_sorted
   # For this test return all movies released after 2002 and ordered by
   # release date descending
-  __
+  Movie.where("release_date BETWEEN '2003' AND '2018'").order(release_date: :desc)
 end
 
 def can_be_found_updated_and_saved
